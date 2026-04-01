@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Dados — Garagem 72</title>
+<style>
+  :root {
+    --navy: #0A1929;
+    --navy-light: #112233;
+    --off-white: #F8F9FA;
+    --orange: #FF6B35;
+    --orange-soft: #FF8C5A;
+    --gray: #5F6368;
+    --gray-light: #E8EAED;
+    --white: #FFFFFF;
+    --green: #1B8A4A;
+    --green-light: #E8F5ED;
+    --red: #C62828;
+    --red-light: #FFEBEE;
+    --yellow: #F59E0B;
+    --yellow-light: #FFFBEB;
+    --blue: #1565C0;
+    --blue-light: #E3F0FF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--off-white);
+    color: #1A1A1A;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 48px 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: var(--orange);
+    opacity: 0.06;
+    border-radius: 50%;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  header h1 span { color: var(--orange); }
+  header p {
+    color: rgba(255,255,255,0.65);
+    font-size: 15px;
+    max-width: 600px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+  }
+  .header-meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .header-meta-item span:first-child {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+  .header-meta-item span:last-child {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 80px;
+  }
+
+  section {
+    padding: 56px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-alt {
+    background: white;
+  }
+
+  /* SECTION TITLES */
+  .section-header {
+    margin-bottom: 36px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--gray);
+    margin-top: 8px;
+    max-width: 700px;
+  }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .kpi-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .kpi-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+  .kpi-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px 28px;
+    border: 1px solid var(--gray-light);
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--orange);
+    border-radius: 4px 0 0 4px;
+  }
+  .kpi-card.green::before { background: var(--green); }
+  .kpi-card.red::before { background: var(--red); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.yellow::before { background: var(--yellow); }
+  .kpi-card.navy::before { background: var(--navy); }
+
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray);
+    margin-bottom: 10px;
+  }
+  .kpi-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .kpi-sub {
+    font-size: 13px;
+    color: var(--gray);
+  }
+  .kpi-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+  .kpi-change.up { background: var(--green-light); color: var(--green); }
+  .kpi-change.down { background: var(--red-light); color: var(--red); }
+  .kpi-change.neutral { background: var(--yellow-light); color: #92400E; }
+
+  /* TABLES */
+  .table-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-light);
+    margin-bottom: 32px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead {
+    background: var(--navy);
+  }
+  thead th {
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 14px 18px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--gray-light);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #F0F4FF; }
+  tbody td {
+    padding: 13px 18px;
+    color: #2D3748;
+    vertical-align: middle;
+  }
+  tbody tr:nth-child(even) { background: #FAFBFC; }
+  tbody tr:nth-child(even):hover { background: #F0F4FF; }
+
+  .td-rank {
+    font-weight: 700;
+    color: var(--gray);
+    font-size: 12px;
+  }
+  .td-name { font-weight: 600; }
+  .td-money {
+    font-weight: 700;
+    color: var(--navy);
+    text-align: right;
+  }
+  .td-qty {
+    text-align: center;
+    font-weight: 600;
+  }
+  .td-center { text-align: center; }
+  .td-right { text-align: right; }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-pj { background: #E3F0FF; color: #1565C0; }
+  .badge-pf { background: #F3E8FF; color: #6D28D9; }
+  .badge-campeao { background: #FFFBEB; color: #92400E; }
+  .badge-fiel { background: var(--green-light); color: var(--green); }
+  .badge-potencial { background: var(--blue-light); color: var(--blue); }
+  .badge-risco { background: var(--red-light); color: var(--red); }
+  .badge-aberto { background: var(--yellow-light); color: #92400E; }
+  .badge-concretizado { background: var(--green-light); color: var(--green); }
+  .badge-cancelado { background: var(--red-light); color: var(--red); }
+
+  /* PROGRESS BARS */
+  .progress-container { margin-bottom: 28px; }
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .progress-label {
+    flex: 0 0 220px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2D3748;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    background: var(--gray-light);
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 20px;
+    transition: width 0.5s ease;
+  }
+  .progress-bar.green { background: var(--green); }
+  .progress-bar.blue { background: var(--blue); }
+  .progress-bar.red { background: var(--red); }
+  .progress-value {
+    flex: 0 0 100px;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* INSIGHTS CARDS */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .insight-card {
+    background: white;
+    border-radius: 12px;
+    padding: 28px 32px;
+    border: 1px solid var(--gray-light);
+    border-left: 4px solid var(--orange);
+  }
+  .insight-card.priority-1 { border-left-color: #C62828; }
+  .insight-card.priority-2 { border-left-color: var(--orange); }
+  .insight-card.priority-3 { border-left-color: var(--yellow); }
+  .insight-card.priority-4 { border-left-color: var(--blue); }
+  .insight-card.priority-5 { border-left-color: var(--green); }
+
+  .insight-priority {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .insight-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .insight-body {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .insight-data {
+    background: var(--off-white);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #2D3748;
+  }
+  .insight-data strong {
+    color: var(--navy);
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    color: var(--gray);
+  }
+  .insight-action {
+    font-size: 13px;
+    color: #2D3748;
+    background: var(--blue-light);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+  }
+  .insight-action strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .insight-impact {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--green);
+    background: var(--green-light);
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+  .insight-impact svg { width: 16px; height: 16px; }
+
+  /* CHART BARS (CSS only) */
+  .chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 28px 32px;
+    border: 1px solid var(--gray-light);
+    margin-bottom: 24px;
+  }
+  .chart-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 140px;
+    margin-bottom: 8px;
+  }
+  .bar-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .bar-fill {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    background: var(--navy);
+    min-width: 20px;
+    transition: height 0.3s;
+  }
+  .bar-fill.highlight { background: var(--orange); }
+  .bar-label {
+    font-size: 10px;
+    color: var(--gray);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+  .bar-value {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: center;
+  }
+
+  /* RISK MATRIX */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .risk-card {
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .risk-card.alto { background: var(--red-light); border: 1px solid #FFCDD2; }
+  .risk-card.medio { background: var(--yellow-light); border: 1px solid #FDE68A; }
+  .risk-card.baixo { background: var(--green-light); border: 1px solid #C8E6C9; }
+  .risk-level {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .risk-card.alto .risk-level { color: var(--red); }
+  .risk-card.medio .risk-level { color: #92400E; }
+  .risk-card.baixo .risk-level { color: var(--green); }
+  .risk-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .risk-desc {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  /* COMPARISON CARD */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .compare-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--gray-light);
+  }
+  .compare-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin-bottom: 16px;
+  }
+  .compare-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-light);
+    font-size: 14px;
+  }
+  .compare-stat:last-child { border-bottom: none; }
+  .compare-stat-label { color: var(--gray); }
+  .compare-stat-value { font-weight: 700; color: var(--navy); }
+
+  /* META PROGRESS */
+  .meta-bar-container {
+    background: var(--gray-light);
+    border-radius: 12px;
+    height: 24px;
+    overflow: hidden;
+    margin-top: 12px;
+    position: relative;
+  }
+  .meta-bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+  }
+  .meta-bar-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--gray-light);
+    margin: 48px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 32px 80px;
+    text-align: center;
+  }
+  footer p {
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+  }
+  footer a {
+    color: var(--orange);
+    text-decoration: none;
+  }
+
+  /* ALERT BOX */
+  .alert {
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .alert-warning { background: var(--yellow-light); border-left: 4px solid var(--yellow); color: #78350F; }
+  .alert-danger { background: var(--red-light); border-left: 4px solid var(--red); color: #7F1D1D; }
+  .alert-success { background: var(--green-light); border-left: 4px solid var(--green); color: #14532D; }
+  .alert-info { background: var(--blue-light); border-left: 4px solid var(--blue); color: #1E3A5F; }
+  .alert strong { font-weight: 700; }
+
+  /* TWO COLUMN */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--off-white);
+    color: var(--gray);
+    border: 1px solid var(--gray-light);
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+
+  /* HIGHLIGHT NUMBER */
+  .highlight-number {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .text-green { color: var(--green); font-weight: 700; }
+  .text-red { color: var(--red); font-weight: 700; }
+  .text-orange { color: var(--orange); font-weight: 700; }
+
+  @media print {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .insights-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">Diagnóstico Estratégico</div>
+  <h1>Garagem <span>72</span> — Análise de Dados Completa</h1>
+  <p>Diagnóstico estratégico baseado em 9 arquivos de dados: clientes, ordens de serviço, orçamentos, produtos, serviços, metas e ticket médio.</p>
+  <div class="header-meta">
+    <div class="header-meta-item">
+      <span>Período base</span>
+      <span>Abr 2024 — Mar 2026</span>
+    </div>
+    <div class="header-meta-item">
+      <span>Dados analisados</span>
+      <span>9 planilhas, 1.200+ registros</span>
+    </div>
+    <div class="header-meta-item">
+      <span>Gerado em</span>
+      <span>01/04/2026</span>
+    </div>
+    <div class="header-meta-item">
+      <span>Responsável</span>
+      <span>Vantt Marketing</span>
+    </div>
+  </div>
+</header>
+
+<!-- ========================================= -->
+<!-- SUMÁRIO EXECUTIVO -->
+<!-- ========================================= -->
+<section>
+  <div class="section-header">
+    <div class="section-label">01 — Sumário Executivo</div>
+    <h2 class="section-title">O negócio funciona. Mas está crescendo abaixo do potencial.</h2>
+    <p class="section-desc">Faturamento anual de R$ 479 mil em 2025, margem operacional acima de 85% e base de 196 clientes ativos. O principal problema não é operacional — é retenção e conversão.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card navy">
+      <div class="kpi-label">Faturamento 2025</div>
+      <div class="kpi-value">R$ 479k</div>
+      <div class="kpi-sub">322 ordens de serviço emitidas</div>
+      <span class="kpi-change neutral">Média R$ 39,9k/mês</span>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Margem Operacional</div>
+      <div class="kpi-value">87,1%</div>
+      <div class="kpi-sub">Custo médio: R$ 204/OS em peças</div>
+      <span class="kpi-change up">Serviços: 92,7%</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Ticket Médio 2025</div>
+      <div class="kpi-value">R$ 1.488</div>
+      <div class="kpi-sub">Por ordem de serviço</div>
+      <span class="kpi-change neutral">Meta interna: R$ 900</span>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Meta Março 2026</div>
+      <div class="kpi-value">35,1%</div>
+      <div class="kpi-sub">R$ 17.527 de R$ 50.000 (até 26/03)</div>
+      <span class="kpi-change down">Equilíbrio: R$ 57.721</span>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card blue">
+      <div class="kpi-label">Base de Clientes Ativos</div>
+      <div class="kpi-value">196</div>
+      <div class="kpi-sub">Compraram nos últimos 24 meses</div>
+      <span class="kpi-change neutral">28 novos em Q1 2026</span>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Churn de 1ª Visita</div>
+      <div class="kpi-value">42,9%</div>
+      <div class="kpi-sub">84 clientes compraram apenas 1x</div>
+      <span class="kpi-change down">R$ 157.596 em risco</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Taxa Conversão Orçamentos</div>
+      <div class="kpi-value">2,5%</div>
+      <div class="kpi-sub">2 de 81 orçamentos emitidos em Q1 2026</div>
+      <span class="kpi-change down">R$ 215k em aberto</span>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Intervalo Médio de Retorno</div>
+      <div class="kpi-value">8 meses</div>
+      <div class="kpi-sub">Frequência: 3 visitas em 2 anos</div>
+      <span class="kpi-change neutral">Oportunidade clara</span>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <strong>Sinal de alerta:</strong> Em março 2026, a oficina atingiu apenas 35,1% da meta de R$ 50.000 com 5 dias úteis restantes. O ponto de equilíbrio (R$ 57.721) não foi atingido em nenhum mês de Q1 2026. A queda no ticket médio de janeiro (R$ 1.991) para março (R$ 1.118) indica redução na complexidade dos serviços ou perda de clientes de maior valor.
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- SAZONALIDADE 2025 -->
+<!-- ========================================= -->
+<section class="section-alt">
+  <div class="section-header">
+    <div class="section-label">02 — Sazonalidade e Tendências</div>
+    <h2 class="section-title">Faturamento de 2025 com variação de 28% entre meses</h2>
+    <p class="section-desc">O negócio apresenta padrão de sazonalidade pronunciado. Junho é o melhor mês histórico. Fevereiro e outubro são os vales críticos.</p>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-title">Faturamento mensal 2025 — Garagem 72 (em R$ mil)</div>
+    <div class="bar-chart">
+      <!-- Baseline = 54.496 (max). Heights proportional -->
+      <div class="bar-item">
+        <div class="bar-value">32,9k</div>
+        <div class="bar-fill" style="height:60%"></div>
+        <div class="bar-label">Jan</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">21,4k</div>
+        <div class="bar-fill red" style="height:39%"></div>
+        <div class="bar-label">Fev</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">42,5k</div>
+        <div class="bar-fill" style="height:78%"></div>
+        <div class="bar-label">Mar</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">49,2k</div>
+        <div class="bar-fill" style="height:90%"></div>
+        <div class="bar-label">Abr</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">40,4k</div>
+        <div class="bar-fill" style="height:74%"></div>
+        <div class="bar-label">Mai</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">54,5k</div>
+        <div class="bar-fill highlight" style="height:100%"></div>
+        <div class="bar-label">Jun</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">30,0k</div>
+        <div class="bar-fill" style="height:55%"></div>
+        <div class="bar-label">Jul</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">34,2k</div>
+        <div class="bar-fill" style="height:63%"></div>
+        <div class="bar-label">Ago</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">48,7k</div>
+        <div class="bar-fill" style="height:89%"></div>
+        <div class="bar-label">Set</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">24,8k</div>
+        <div class="bar-fill red" style="height:45%"></div>
+        <div class="bar-label">Out</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">47,5k</div>
+        <div class="bar-fill" style="height:87%"></div>
+        <div class="bar-label">Nov</div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-value">53,0k</div>
+        <div class="bar-fill highlight" style="height:97%"></div>
+        <div class="bar-label">Dez</div>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--gray); margin-top:8px;">Linha laranja = pico. Linha vermelha = vale. Média: R$ 39.929/mês.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Mês Pico</div>
+      <div class="kpi-value">Junho</div>
+      <div class="kpi-sub">R$ 54.497 — +36,5% acima da média</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Mês Vale (crítico)</div>
+      <div class="kpi-value">Fevereiro</div>
+      <div class="kpi-sub">R$ 21.424 — 46,3% abaixo da média</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">1º Semestre 2025</div>
+      <div class="kpi-value">R$ 240,8k</div>
+      <div class="kpi-sub">154 OS — ticket médio R$ 1.561</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">2º Semestre 2025</div>
+      <div class="kpi-value">R$ 238,3k</div>
+      <div class="kpi-sub">168 OS — ticket médio R$ 1.474</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Variação vs. média mensal</h3>
+      <div class="progress-container">
+        <div class="progress-item">
+          <div class="progress-label">Junho +36,5%</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:100%"></div></div>
+          <div class="progress-value">R$ 54.497</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">Dezembro +32,7%</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:89%"></div></div>
+          <div class="progress-value">R$ 53.005</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">Abril +23,2%</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:68%"></div></div>
+          <div class="progress-value">R$ 49.201</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">Setembro +22,1%</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:65%"></div></div>
+          <div class="progress-value">R$ 48.743</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">Outubro -37,9%</div>
+          <div class="progress-bar-wrap"><div class="progress-bar red" style="width:28%"></div></div>
+          <div class="progress-value">R$ 24.795</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">Fevereiro -46,3%</div>
+          <div class="progress-bar-wrap"><div class="progress-bar red" style="width:14%"></div></div>
+          <div class="progress-value">R$ 21.424</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Março 2026 — Acompanhamento da Meta</h3>
+      <div class="kpi-card red" style="margin-bottom:16px;">
+        <div class="kpi-label">Realizado até 26/03/2026</div>
+        <div class="kpi-value">R$ 17.527</div>
+        <div class="kpi-sub">Meta: R$ 50.000 | Equilíbrio: R$ 57.721</div>
+        <div class="meta-bar-container" style="margin-top:12px;">
+          <div class="meta-bar-fill" style="width:35%; background:var(--red);">
+            <span class="meta-bar-text">35%</span>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-danger">
+        <strong>Déficit crítico:</strong> Para atingir o ponto de equilíbrio nos 5 dias restantes de março, a oficina precisaria faturar R$ 13.399/dia — 14x acima da média diária registrada até 26/03 (R$ 946/dia).
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <div class="compare-card-title">Março 2025</div>
+          <div class="compare-stat"><span class="compare-stat-label">Faturamento</span><span class="compare-stat-value">R$ 42.459</span></div>
+          <div class="compare-stat"><span class="compare-stat-label">OS emitidas</span><span class="compare-stat-value">20</span></div>
+          <div class="compare-stat"><span class="compare-stat-label">Ticket médio</span><span class="compare-stat-value">R$ 2.123</span></div>
+        </div>
+        <div class="compare-card">
+          <div class="compare-card-title">Março 2026 (até 26/03)</div>
+          <div class="compare-stat"><span class="compare-stat-label">Faturamento</span><span class="compare-stat-value text-red">R$ 17.527</span></div>
+          <div class="compare-stat"><span class="compare-stat-label">OS emitidas</span><span class="compare-stat-value">19</span></div>
+          <div class="compare-stat"><span class="compare-stat-label">Ticket médio</span><span class="compare-stat-value text-red">R$ 1.118</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- ANÁLISE RFM + PARETO -->
+<!-- ========================================= -->
+<section>
+  <div class="section-header">
+    <div class="section-label">03 — Segmentação de Clientes</div>
+    <h2 class="section-title">35% dos clientes geram 80% do faturamento</h2>
+    <p class="section-desc">Análise RFM (Recência, Frequência, Monetário) sobre 196 clientes ativos no período de abril de 2024 a março de 2026.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Clientes Campeões</div>
+      <div class="kpi-value">10</div>
+      <div class="kpi-sub">Alta freq. + alto valor</div>
+      <span class="kpi-change up">R$ 236.547 gerados</span>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Clientes Fiéis</div>
+      <div class="kpi-value">25</div>
+      <div class="kpi-sub">5–9 visitas, ticket relevante</div>
+      <span class="kpi-change up">R$ 249.712 gerados</span>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Clientes Potenciais</div>
+      <div class="kpi-value">61</div>
+      <div class="kpi-sub">2–4 visitas, valor médio</div>
+      <span class="kpi-change neutral">R$ 246.971 gerados</span>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Em Risco de Churn</div>
+      <div class="kpi-value">100</div>
+      <div class="kpi-sub">1 visita ou baixo valor</div>
+      <span class="kpi-change down">R$ 104.121 em risco</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Cliente</th>
+              <th class="td-center">Visitas</th>
+              <th class="td-right">Faturamento</th>
+              <th class="td-right">Ticket Médio</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-rank">01</td>
+              <td class="td-name">Transpeciais</td>
+              <td class="td-qty">30</td>
+              <td class="td-money">R$ 56.260</td>
+              <td class="td-right">R$ 1.875</td>
+              <td><span class="badge badge-pj">PJ</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">02</td>
+              <td class="td-name">Zero Kilômetro</td>
+              <td class="td-qty">18</td>
+              <td class="td-money">R$ 47.976</td>
+              <td class="td-right">R$ 2.665</td>
+              <td><span class="badge badge-pj">PJ</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">03</td>
+              <td class="td-name">Vanusa Marta Torres</td>
+              <td class="td-qty">9</td>
+              <td class="td-money">R$ 26.016</td>
+              <td class="td-right">R$ 2.891</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">04</td>
+              <td class="td-name">Múcio Barbosa Ribeiro</td>
+              <td class="td-qty">7</td>
+              <td class="td-money">R$ 22.891</td>
+              <td class="td-right">R$ 3.270</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">05</td>
+              <td class="td-name">Renato Alves Rego</td>
+              <td class="td-qty">9</td>
+              <td class="td-money">R$ 21.730</td>
+              <td class="td-right">R$ 2.414</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">06</td>
+              <td class="td-name">Genésio Costa Fernandes</td>
+              <td class="td-qty">17</td>
+              <td class="td-money">R$ 16.380</td>
+              <td class="td-right">R$ 964</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">07</td>
+              <td class="td-name">Dário Mateus de Souza</td>
+              <td class="td-qty">7</td>
+              <td class="td-money">R$ 14.102</td>
+              <td class="td-right">R$ 2.015</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">08</td>
+              <td class="td-name">Rodrigo Gerlach</td>
+              <td class="td-qty">12</td>
+              <td class="td-money">R$ 13.682</td>
+              <td class="td-right">R$ 1.140</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">09</td>
+              <td class="td-name">Brasil Solos Equipamentos</td>
+              <td class="td-qty">2</td>
+              <td class="td-money">R$ 10.824</td>
+              <td class="td-right">R$ 5.412</td>
+              <td><span class="badge badge-pj">PJ</span></td>
+            </tr>
+            <tr>
+              <td class="td-rank">10</td>
+              <td class="td-name">Mateus Moreira Matos</td>
+              <td class="td-qty">16</td>
+              <td class="td-money">R$ 10.636</td>
+              <td class="td-right">R$ 665</td>
+              <td><span class="badge badge-pf">PF</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Distribuição Pareto — % do faturamento por segmento</div>
+        <div style="display:flex; gap:12px; margin-bottom:24px;">
+          <div style="flex:1; background:var(--navy); border-radius:8px; padding:16px; text-align:center; color:white;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; opacity:0.6; margin-bottom:6px;">5,1% da base (PJ)</div>
+            <div style="font-size:24px; font-weight:800;">16,1%</div>
+            <div style="font-size:12px; opacity:0.7;">do faturamento total</div>
+          </div>
+          <div style="flex:1; background:var(--off-white); border-radius:8px; padding:16px; text-align:center; border:1px solid var(--gray-light);">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--gray); margin-bottom:6px;">94,9% da base (PF)</div>
+            <div style="font-size:24px; font-weight:800; color:var(--navy);">83,9%</div>
+            <div style="font-size:12px; color:var(--gray);">do faturamento total</div>
+          </div>
+        </div>
+        <div style="background:var(--off-white); border-radius:8px; padding:16px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px;">
+            <strong style="color:var(--navy);">Pareto 80/20</strong>
+            <span style="color:var(--gray);">68 de 196 clientes</span>
+          </div>
+          <div style="background:var(--gray-light); border-radius:8px; height:12px; overflow:hidden;">
+            <div style="height:100%; width:34.7%; background:var(--orange); border-radius:8px;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:12px; color:var(--gray);">
+            <span>34,7% dos clientes</span>
+            <span>geram 80% do faturamento</span>
+          </div>
+        </div>
+        <div style="background:var(--red-light); border-radius:8px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px;">
+            <strong style="color:var(--red);">Risco: clientes de 1 visita</strong>
+            <span style="color:var(--red);">42,9% da base</span>
+          </div>
+          <div style="background:rgba(198,40,40,0.2); border-radius:8px; height:12px; overflow:hidden;">
+            <div style="height:100%; width:42.9%; background:var(--red); border-radius:8px;"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:12px; color:var(--red);">
+            <span>84 clientes sem retorno</span>
+            <span>R$ 157.596 em jogo</span>
+          </div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-title">PJ vs. PF — Comparativo</div>
+        <div class="compare-stat">
+          <span class="compare-stat-label">Clientes PJ</span>
+          <span class="compare-stat-value">10 (5,1%)</span>
+        </div>
+        <div class="compare-stat">
+          <span class="compare-stat-label">Ticket médio PJ</span>
+          <span class="compare-stat-value text-green">R$ 2.107</span>
+        </div>
+        <div class="compare-stat">
+          <span class="compare-stat-label">Faturamento PJ</span>
+          <span class="compare-stat-value">R$ 134.841</span>
+        </div>
+        <div class="compare-stat">
+          <span class="compare-stat-label">Ticket médio PF</span>
+          <span class="compare-stat-value">R$ 1.356</span>
+        </div>
+        <div class="compare-stat">
+          <span class="compare-stat-label">LTV anual PJ (est.)</span>
+          <span class="compare-stat-value text-green">R$ 6.742</span>
+        </div>
+        <div class="compare-stat">
+          <span class="compare-stat-label">LTV anual PF (est.)</span>
+          <span class="compare-stat-value">R$ 1.888</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- MIX DE SERVIÇOS -->
+<!-- ========================================= -->
+<section class="section-alt">
+  <div class="section-header">
+    <div class="section-label">04 — Mix de Serviços e Produtos</div>
+    <h2 class="section-title">Câmbio e transmissão: 1,1% das execuções, 32,7% do faturamento</h2>
+    <p class="section-desc">Análise de 126 tipos de serviço e 98 produtos no período de janeiro a março de 2026. Total: R$ 85.709 com margem de 86%.</p>
+  </div>
+
+  <div class="kpi-grid kpi-grid-3">
+    <div class="kpi-card green">
+      <div class="kpi-label">Total Serviços (Q1 2026)</div>
+      <div class="kpi-value">R$ 44.291</div>
+      <div class="kpi-sub">340 execuções, 126 tipos distintos</div>
+      <span class="kpi-change up">Margem: 92,7%</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Produtos (Q1 2026)</div>
+      <div class="kpi-value">R$ 41.418</div>
+      <div class="kpi-sub">264 itens vendidos, 98 distintos</div>
+      <span class="kpi-change up">Margem: 81,0%</span>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Serviço Mais Frequente</div>
+      <div class="kpi-value">Troca de Óleo</div>
+      <div class="kpi-sub">144 execuções — porém R$ 454 total</div>
+      <span class="kpi-change down">Preço subestimado</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Categorias por faturamento (Q1 2026)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th class="td-center">Execuções</th>
+              <th class="td-right">Faturamento</th>
+              <th class="td-right">% Total</th>
+              <th class="td-right">Margem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-name">Câmbio/Transmissão</td>
+              <td class="td-qty">4</td>
+              <td class="td-money">R$ 14.465</td>
+              <td class="td-right">32,7%</td>
+              <td class="td-right text-green">100%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Outros (não categorizados)</td>
+              <td class="td-qty">81</td>
+              <td class="td-money">R$ 13.772</td>
+              <td class="td-right">31,1%</td>
+              <td class="td-right text-green">94,8%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Sistema de Freios</td>
+              <td class="td-qty">30</td>
+              <td class="td-money">R$ 3.592</td>
+              <td class="td-right">8,1%</td>
+              <td class="td-right text-green">99,5%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Suspensão</td>
+              <td class="td-qty">21</td>
+              <td class="td-money">R$ 3.232</td>
+              <td class="td-right">7,3%</td>
+              <td class="td-right">77,4%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Injeção/Combustível</td>
+              <td class="td-qty">4</td>
+              <td class="td-money">R$ 2.070</td>
+              <td class="td-right">4,7%</td>
+              <td class="td-right text-green">100%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Elétrica</td>
+              <td class="td-qty">6</td>
+              <td class="td-money">R$ 2.000</td>
+              <td class="td-right">4,5%</td>
+              <td class="td-right">88,9%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Troca de Óleo</td>
+              <td class="td-qty">163</td>
+              <td class="td-money">R$ 1.780</td>
+              <td class="td-right">4,0%</td>
+              <td class="td-right">90,8%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Diagnóstico/Scanner</td>
+              <td class="td-qty">3</td>
+              <td class="td-money">R$ 830</td>
+              <td class="td-right">1,9%</td>
+              <td class="td-right text-red">-1,2%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Alinhamento</td>
+              <td class="td-qty">6</td>
+              <td class="td-money">R$ 640</td>
+              <td class="td-right">1,4%</td>
+              <td class="td-right">48,4%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Top produtos por faturamento (Q1 2026)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th class="td-center">Qtd</th>
+              <th class="td-right">Faturamento</th>
+              <th class="td-right">Margem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-name">Óleo do Motor</td>
+              <td class="td-qty">58</td>
+              <td class="td-money">R$ 3.738</td>
+              <td class="td-right text-green">98,4%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Amortecedor Dianteiro</td>
+              <td class="td-qty">3</td>
+              <td class="td-money">R$ 2.185</td>
+              <td class="td-right text-green">99,9%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Pastilha de Freio Diant.</td>
+              <td class="td-qty">6</td>
+              <td class="td-money">R$ 2.117</td>
+              <td class="td-right text-green">98,2%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Alternador</td>
+              <td class="td-qty">1</td>
+              <td class="td-money">R$ 2.072</td>
+              <td class="td-right">42,6%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Disco de Freio Dianteiro</td>
+              <td class="td-qty">4</td>
+              <td class="td-money">R$ 1.860</td>
+              <td class="td-right text-green">76,8%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Bomba D'Água</td>
+              <td class="td-qty">3</td>
+              <td class="td-money">R$ 1.495</td>
+              <td class="td-right text-green">99,8%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Semi Eixo Lado Direito</td>
+              <td class="td-qty">1</td>
+              <td class="td-money">R$ 1.470</td>
+              <td class="td-right text-green">99,9%</td>
+            </tr>
+            <tr>
+              <td class="td-name">Jogo de Velas</td>
+              <td class="td-qty">7</td>
+              <td class="td-money">R$ 1.225</td>
+              <td class="td-right text-green">99,4%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-warning">
+        <strong>Problema identificado:</strong> A troca de óleo representa 47,9% das execuções de serviço (163 de 340), mas gera apenas R$ 1.780 — ou seja, R$ 10,94 por execução. A mão de obra está sendo cobrada a preço simbólico (R$ 3,16 em média). O produto (óleo) é vendido separado, mas mesmo assim o conjunto gera apenas R$ 64,45/OS em média quando comparado com o potencial do serviço.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- ORÇAMENTOS E CONVERSÃO -->
+<!-- ========================================= -->
+<section>
+  <div class="section-header">
+    <div class="section-label">05 — Orçamentos e Conversão</div>
+    <h2 class="section-title">Taxa de conversão de 2,5%: R$ 215 mil parados em orçamentos abertos</h2>
+    <p class="section-desc">81 orçamentos emitidos em Q1 2026. Apenas 2 convertidos. 78 em aberto com ticket médio de R$ 2.763.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Orçamentos Emitidos</div>
+      <div class="kpi-value">81</div>
+      <div class="kpi-sub">Q1 2026 — Jan a Mar</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Conversão Real</div>
+      <div class="kpi-value">2,5%</div>
+      <div class="kpi-sub">Apenas 2 convertidos em aprovados</div>
+      <span class="kpi-change down">Setor: 25–40%</span>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Em Aberto</div>
+      <div class="kpi-value">R$ 215k</div>
+      <div class="kpi-sub">78 orçamentos aguardando aprovação</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Ticket Médio Orçamentos</div>
+      <div class="kpi-value">R$ 2.763</div>
+      <div class="kpi-sub">85% acima do ticket médio de OS</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Top orçamentos em aberto (oportunidade imediata)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cód.</th>
+              <th>Cliente</th>
+              <th>Data</th>
+              <th class="td-right">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>586</td>
+              <td class="td-name">Kau Turbo</td>
+              <td>23/03/2026</td>
+              <td class="td-money">R$ 53.240</td>
+            </tr>
+            <tr>
+              <td>535</td>
+              <td class="td-name">Thiago Ribeiro de Oliveira</td>
+              <td>14/01/2026</td>
+              <td class="td-money">R$ 17.630</td>
+            </tr>
+            <tr>
+              <td>585</td>
+              <td class="td-name">Wellington Parreiras da Fonseca</td>
+              <td>10/03/2026</td>
+              <td class="td-money">R$ 15.879</td>
+            </tr>
+            <tr>
+              <td>601</td>
+              <td class="td-name">Fábio Ribeiro</td>
+              <td>24/03/2026</td>
+              <td class="td-money">R$ 10.602</td>
+            </tr>
+            <tr>
+              <td>575</td>
+              <td class="td-name">Warleson de Castro Ferreira</td>
+              <td>27/02/2026</td>
+              <td class="td-money">R$ 8.197</td>
+            </tr>
+            <tr>
+              <td>526</td>
+              <td class="td-name">Ricardo Inácio Gonçalves</td>
+              <td>08/01/2026</td>
+              <td class="td-money">R$ 7.139</td>
+            </tr>
+            <tr>
+              <td>546</td>
+              <td class="td-name">MK Veículos e Acessórios</td>
+              <td>27/01/2026</td>
+              <td class="td-money">R$ 6.600</td>
+            </tr>
+            <tr>
+              <td>602</td>
+              <td class="td-name">Gilson Rodrigo Moreira</td>
+              <td>25/03/2026</td>
+              <td class="td-money">R$ 5.728</td>
+            </tr>
+            <tr>
+              <td>582</td>
+              <td class="td-name">Hugo Vinicius da Silva Torres</td>
+              <td>04/03/2026</td>
+              <td class="td-money">R$ 5.503</td>
+            </tr>
+            <tr>
+              <td>569</td>
+              <td class="td-name">Geraldo Magela Guimarães</td>
+              <td>23/02/2026</td>
+              <td class="td-money">R$ 4.090</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-success">
+        <strong>Oportunidade imediata:</strong> Os 10 maiores orçamentos em aberto somam R$ 134.608. Se convertidos a uma taxa de 30%, geram R$ 40.382 — suficiente para cobrir o mês inteiro de outubro 2025.
+      </div>
+    </div>
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Cenários de conversão dos orçamentos em aberto (R$ 215.477)</div>
+        <div style="display:flex; flex-direction:column; gap:16px; margin-top:8px;">
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+              <span style="color:var(--gray);">Cenário conservador (10%)</span>
+              <strong style="color:var(--navy);">R$ 21.548</strong>
+            </div>
+            <div style="background:var(--gray-light); border-radius:8px; height:10px; overflow:hidden;">
+              <div style="height:100%; width:10%; background:var(--navy); border-radius:8px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+              <span style="color:var(--gray);">Cenário realista (30%)</span>
+              <strong style="color:var(--orange);">R$ 64.643</strong>
+            </div>
+            <div style="background:var(--gray-light); border-radius:8px; height:10px; overflow:hidden;">
+              <div style="height:100%; width:30%; background:var(--orange); border-radius:8px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+              <span style="color:var(--gray);">Cenário otimista (50%)</span>
+              <strong style="color:var(--green);">R$ 107.738</strong>
+            </div>
+            <div style="background:var(--gray-light); border-radius:8px; height:10px; overflow:hidden;">
+              <div style="height:100%; width:50%; background:var(--green); border-radius:8px;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+              <span style="color:var(--gray);">Se recuperar TODOS</span>
+              <strong style="color:var(--blue);">R$ 215.477</strong>
+            </div>
+            <div style="background:var(--gray-light); border-radius:8px; height:10px; overflow:hidden;">
+              <div style="height:100%; width:100%; background:var(--blue); border-radius:8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-card">
+        <div class="compare-card-title">Marcas mais lucrativas nas OS</div>
+        <div class="compare-stat"><span class="compare-stat-label">Audi</span><span class="compare-stat-value text-green">R$ 16.666</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Renault</span><span class="compare-stat-value">R$ 11.869</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Chevrolet</span><span class="compare-stat-value">R$ 10.548</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Fiat</span><span class="compare-stat-value">R$ 8.335</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Chrysler</span><span class="compare-stat-value">R$ 5.589</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Volkswagen</span><span class="compare-stat-value">R$ 4.962</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Hyundai</span><span class="compare-stat-value">R$ 4.889</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Jeep</span><span class="compare-stat-value">R$ 3.645</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- LTV + AQUISIÇÃO -->
+<!-- ========================================= -->
+<section class="section-alt">
+  <div class="section-header">
+    <div class="section-label">06 — LTV e Aquisição</div>
+    <h2 class="section-title">LTV médio de R$ 2.136/ano por cliente — PJ vale 3,6x mais que PF</h2>
+    <p class="section-desc">Estimativas baseadas em 24 meses de dados históricos e padrão de frequência observado.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">LTV Médio Anual</div>
+      <div class="kpi-value">R$ 2.136</div>
+      <div class="kpi-sub">R$ 178/cliente/mês em receita</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">LTV Anual PJ</div>
+      <div class="kpi-value">R$ 6.742</div>
+      <div class="kpi-sub">Ticket médio R$ 2.107, freq. maior</div>
+      <span class="kpi-change up">3,6x acima da média</span>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">LTV Anual PF</div>
+      <div class="kpi-value">R$ 1.888</div>
+      <div class="kpi-sub">Ticket médio R$ 1.356, freq. menor</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">LTV Projetado 3 Anos</div>
+      <div class="kpi-value">R$ 5.127</div>
+      <div class="kpi-sub">Assumindo churn de 25%/ano</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Comportamento de retorno dos clientes</h3>
+      <div class="progress-container">
+        <div class="progress-item">
+          <div class="progress-label">Apenas 1 visita (42,9%)</div>
+          <div class="progress-bar-wrap"><div class="progress-bar red" style="width:42.9%"></div></div>
+          <div class="progress-value">84 clientes</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">2 visitas (20,4%)</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:20.4%; background:var(--yellow);"></div></div>
+          <div class="progress-value">40 clientes</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">3–4 visitas (19,4%)</div>
+          <div class="progress-bar-wrap"><div class="progress-bar blue" style="width:19.4%"></div></div>
+          <div class="progress-value">38 clientes</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">5–9 visitas (12,8%)</div>
+          <div class="progress-bar-wrap"><div class="progress-bar green" style="width:12.8%"></div></div>
+          <div class="progress-value">25 clientes</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">10+ visitas (4,6%)</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:4.6%"></div></div>
+          <div class="progress-value">9 clientes</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:16px;">Estimativas de LTV por cenário</h3>
+      <div class="compare-card">
+        <div class="compare-card-title">Indicadores-chave</div>
+        <div class="compare-stat"><span class="compare-stat-label">Frequência média de visita</span><span class="compare-stat-value">3,0x em 24 meses</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Intervalo médio entre visitas</span><span class="compare-stat-value">~8 meses</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Ticket médio histórico</span><span class="compare-stat-value">R$ 1.439</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Novos clientes Q1 2026</span><span class="compare-stat-value">28 (9,3/mês)</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Projeção anual de novos</span><span class="compare-stat-value">~112 clientes/ano</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Receita anual estimada (112 novos)</span><span class="compare-stat-value text-green">R$ 239.232</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">Maior fonte de indicação</span><span class="compare-stat-value">Google (7 clientes)</span></div>
+        <div class="compare-stat"><span class="compare-stat-label">% clientes com indicação</span><span class="compare-stat-value text-green">75%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- INSIGHTS ACIONÁVEIS -->
+<!-- ========================================= -->
+<section>
+  <div class="section-header">
+    <div class="section-label">07 — Insights Estratégicos</div>
+    <h2 class="section-title">10 oportunidades com impacto financeiro estimado</h2>
+    <p class="section-desc">Ordenados por potencial de impacto imediato. Cada insight inclui o dado, o significado e a ação recomendada.</p>
+  </div>
+
+  <div class="insights-grid">
+
+    <!-- INSIGHT 1 -->
+    <div class="insight-card priority-1">
+      <div class="insight-priority">Prioridade 1 — Impacto imediato</div>
+      <div class="insight-title">Recuperar os R$ 215.477 em orçamentos em aberto</div>
+      <div class="insight-body">78 orçamentos foram emitidos e nunca respondidos — ou sem acompanhamento registrado. A taxa de conversão atual de 2,5% indica ausência de um processo de acompanhamento pós-orçamento. O ticket médio desses orçamentos (R$ 2.763) é 85% acima da média de OS, indicando clientes de maior valor.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        78 orçamentos em aberto totalizando R$ 215.477. Os 10 maiores somam R$ 134.608.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Criar fluxo de acompanhamento: WhatsApp no D+3, ligação no D+7, desconto de urgência no D+14. Priorizar os 10 de maior valor. A Kau Turbo sozinha tem R$ 53.240 em aberto.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +R$ 64.643 (conversão de 30%)
+      </div>
+    </div>
+
+    <!-- INSIGHT 2 -->
+    <div class="insight-card priority-1">
+      <div class="insight-priority">Prioridade 2 — Retenção crítica</div>
+      <div class="insight-title">42,9% dos clientes não voltaram após a 1ª visita</div>
+      <div class="insight-body">84 clientes fizeram apenas uma compra. Se 30% desses fossem trazidos de volta para uma segunda visita, o impacto seria de quase R$ 100 mil adicionais no prazo de 2 anos. O intervalo médio de retorno é 8 meses — o que significa que a maioria ainda está dentro da janela de possível reconquista.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        84 clientes com 1 visita, gerando R$ 157.596. Se não voltarem, esse é o valor "queimado" em aquisição.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Criar campanha de reativação via WhatsApp 45–60 dias após a 1ª visita: "Seu [CARRO] está na hora de revisão? Agende agora com 10% de desconto." Segmentar por marca de veículo para personalizar a mensagem.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +R$ 94.558 em 24 meses (30% retorno)
+      </div>
+    </div>
+
+    <!-- INSIGHT 3 -->
+    <div class="insight-card priority-2">
+      <div class="insight-priority">Prioridade 3 — Pricing crítico</div>
+      <div class="insight-title">Troca de óleo: 47,9% das execuções, 4% do faturamento</div>
+      <div class="insight-body">A troca de óleo é o serviço mais frequente da oficina (163 de 340 execuções), mas gera apenas R$ 1.780 no período — R$ 10,94 por execução em média. Isso porque a mão de obra está sendo cobrada a R$ 3,16 (simbólico). Quando o produto (óleo) é vendido junto, o conjunto chega a R$ 64 por OS, mas ainda abaixo do mercado (R$ 80–150 por troca).</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        163 trocas de óleo geram R$ 1.780 (R$ 10,94/exec). Concorrente padrão cobra R$ 80–150 total por troca.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Reformular o pacote de troca de óleo como "Revisão Preventiva Completa" (óleo + filtro + verificação dos 10 pontos críticos). Precificar em R$ 149–199. Criar fidelidade: "Troca 5 vezes, a 6ª é com desconto de 30%."
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +R$ 21.730/ano (163 OS × R$ 133 ajuste)
+      </div>
+    </div>
+
+    <!-- INSIGHT 4 -->
+    <div class="insight-card priority-2">
+      <div class="insight-priority">Prioridade 4 — Sazonalidade</div>
+      <div class="insight-title">Fevereiro e outubro valem 40–50% abaixo da média: antecipar demanda</div>
+      <div class="insight-body">Os dois piores meses do ano são Fevereiro (R$ 21.424, -46%) e Outubro (R$ 24.795, -38%). Ambos são previsíveis. A oficina pode criar campanhas antecipadas nesses meses com pacotes de revisão sazonal, convertendo clientes fiéis antes da queda de demanda.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        Fevereiro 2025: R$ 21.424 (menor mês). Março 2025: R$ 42.458 (98% acima). A queda é consistente e previsível.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Em janeiro, disparar oferta para clientes que visitaram a oficina entre agosto e dezembro: "Revisão pré-carnaval". Em setembro, mesma lógica: "Revisão pré-fim de ano". Meta: elevar Fevereiro e Outubro para a média.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +R$ 36.000/ano (elevar 2 meses à média)
+      </div>
+    </div>
+
+    <!-- INSIGHT 5 -->
+    <div class="insight-card priority-3">
+      <div class="insight-priority">Prioridade 5 — Segmento estratégico</div>
+      <div class="insight-title">PJ representa 5% da base mas gera 16% do faturamento com LTV 3,6x maior</div>
+      <div class="insight-body">Os 10 clientes PJ geraram R$ 134.841 — ticket médio de R$ 2.107 por visita e LTV anual estimado de R$ 6.742. Os dois maiores (Transpeciais e Zero Kilômetro) juntos representam R$ 104.236 ou 12,5% de todo o faturamento de 2 anos. Adquirir mais 5 clientes PJ equivale a mais R$ 33.710/ano.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        Transpeciais: 30 visitas, R$ 56.260 (ticket R$ 1.875). Zero Kilômetro: 18 visitas, R$ 47.976 (ticket R$ 2.665).
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Criar "Programa Empresa Parceira": contrato de manutenção mensal/trimestral para frotas, com desconto de 8–12% e prioridade de atendimento. Prospectar oficinas menores, locadoras e transportadoras em BH. Meta: 5 novos PJ/ano.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +R$ 33.710/ano (5 novos PJ)
+      </div>
+    </div>
+
+    <!-- INSIGHT 6 -->
+    <div class="insight-card priority-3">
+      <div class="insight-priority">Prioridade 6 — Cross-sell</div>
+      <div class="insight-title">Câmbio e transmissão geram 32,7% do faturamento com apenas 4 execuções</div>
+      <div class="insight-body">Câmbio/transmissão são os serviços de maior valor (ticket médio de R$ 3.616) e 100% de margem. Com apenas 4 execuções em Q1, há espaço para aumentar a frequência através do diagnóstico ativo durante outros serviços. Todo veículo com mais de 80.000 km que entra para troca de óleo deveria receber verificação de câmbio.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        4 OS de câmbio = R$ 14.465 (R$ 3.616/OS). Troca de óleo: 163 OS = R$ 1.780 (R$ 10,94/OS). Diferença de 330x no retorno.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Implementar checklist de diagnóstico obrigatório em toda OS acima de R$ 300. Para veículos com 80k+ km: oferecer análise de câmbio por R$ 0 (com intenção de fechar a OS maior). Meta: 2 OS adicionais de câmbio por mês.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +R$ 86.784/ano (2 OS/mês × R$ 3.616)
+      </div>
+    </div>
+
+    <!-- INSIGHT 7 -->
+    <div class="insight-card priority-3">
+      <div class="insight-priority">Prioridade 7 — Retenção de elite</div>
+      <div class="insight-title">10 clientes "campeões" concentram R$ 236.547: programa VIP urgente</div>
+      <div class="insight-body">Os 10 clientes campeões representam 5% da base e geraram 28% do faturamento total de 2 anos. Transpeciais e Zero Kilômetro sozinhos somam R$ 104.236. A perda de qualquer um desses clientes para um concorrente impactaria diretamente o faturamento em R$ 23.000–R$ 56.000 anuais.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        Múcio Barbosa: ticket médio R$ 3.270 (maior da base PF). Vanusa Torres: R$ 2.891. Renato Rego: R$ 2.414.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Criar "Clube Garagem Elite": atendimento preferencial, diagnóstico grátis anual, desconto de 10% em revisões, ligação mensal de relacionamento. Custo estimado: R$ 200/cliente/ano. Retorno: garantir R$ 236.547/2 anos.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        R$ 236.547 protegidos (24 meses)
+      </div>
+    </div>
+
+    <!-- INSIGHT 8 -->
+    <div class="insight-card priority-4">
+      <div class="insight-priority">Prioridade 8 — Aquisição orgânica</div>
+      <div class="insight-title">Google é a principal fonte de indicação: 33% dos novos clientes</div>
+      <div class="insight-body">7 dos 21 novos clientes com indicação registrada vieram do Google. A oficina está sendo descoberta organicamente, sem investimento em anúncios. Isso indica que existe demanda ativa sendo captada — e que um investimento em Google (SEO ou Ads) poderia multiplicar esse canal. O segundo maior canal é "boca a boca" de clientes existentes.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        28 novos clientes em Q1 2026, 21 com origem registrada: Google 7 (33%), boca a boca 8 (38%), sem origem 7 (33%).
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        (1) Otimizar Google Meu Negócio com fotos, posts semanais e respostas a avaliações. (2) Criar campanha de Google Ads para "oficina importados BH" e "mecânica Salgado Filho". (3) Programa de indicação: "Indique um amigo, ganhe R$ 50 em desconto".
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        +24 clientes/ano = +R$ 51.264
+      </div>
+    </div>
+
+    <!-- INSIGHT 9 -->
+    <div class="insight-card priority-4">
+      <div class="insight-priority">Prioridade 9 — Diagnóstico gratuito</div>
+      <div class="insight-title">Diagnóstico tem margem negativa: cobra R$ 277 mas custa R$ 840 quando terceirizado</div>
+      <div class="insight-body">O serviço de "Diagnóstico/Scanner/Rastreador Automotivo" aparece 3 vezes com faturamento de R$ 830, porém com custo total de R$ 840 — gerando prejuízo de -R$ 10. O diagnóstico deve ser usado como entrada de funil (serviço atrativo de baixo custo) que viabiliza a venda do serviço maior — não como linha de receita principal.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        3 diagnósticos = R$ 830 faturados, R$ 840 de custo. Margem: -1,2%.
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Transformar diagnóstico em "Diagnóstico Preventivo Grátis para 1ª visita" e cobrar R$ 150–200 nos retornos. O diagnóstico deve obrigatoriamente gerar um orçamento de manutenção. Meta: 100% dos diagnósticos convertidos em orçamento.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        Eliminar prejuízo + gerar funil de serviços
+      </div>
+    </div>
+
+    <!-- INSIGHT 10 -->
+    <div class="insight-card priority-5">
+      <div class="insight-priority">Prioridade 10 — Projeção 2026</div>
+      <div class="insight-title">Queda de 6,8% em Q1 2026 vs. Q1 2025: reversão necessária em abril</div>
+      <div class="insight-body">Q1 2026 projetado (R$ 90.216) é 6,8% menor que Q1 2025 (R$ 96.802). O ticket médio caiu de R$ 1.991 (janeiro 2026) para R$ 1.118 (março 2026) — queda de 44% em 2 meses. Isso indica redução na complexidade dos serviços ou perda de clientes de maior valor para concorrência. A meta anual de R$ 600.000 exigiria crescimento de 25% sobre 2025.</div>
+      <div class="insight-data">
+        <strong>O dado</strong>
+        Média Q1 2026: R$ 30.072/mês vs. média 2025: R$ 39.930/mês (-24,7%).
+      </div>
+      <div class="insight-action">
+        <strong>Ação recomendada</strong>
+        Projeção conservadora 2026: R$ 360.865 (manter Q1). Projeção realista: R$ 440.000 (recuperar para média 2025). Para atingir R$ 600.000, é necessário implementar ao menos 3 das ações deste relatório simultaneamente: cross-sell câmbio, conversão de orçamentos e retenção PJ.
+      </div>
+      <div class="insight-impact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+        Meta realista 2026: R$ 440.000–R$ 520.000
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- RISCOS -->
+<!-- ========================================= -->
+<section class="section-alt">
+  <div class="section-header">
+    <div class="section-label">08 — Análise de Riscos</div>
+    <h2 class="section-title">Três riscos críticos identificados para 2026</h2>
+  </div>
+
+  <div class="risk-grid">
+    <div class="risk-card alto">
+      <div class="risk-level">Risco Alto</div>
+      <div class="risk-name">Dependência de Poucos Clientes</div>
+      <div class="risk-desc">Transpeciais e Zero Kilômetro = R$ 104.236 (12,5% do faturamento de 2 anos). Perda de 1 cliente impacta diretamente R$ 25–50k/ano.</div>
+    </div>
+    <div class="risk-card alto">
+      <div class="risk-level">Risco Alto</div>
+      <div class="risk-name">Queda de 44% no Ticket em Março</div>
+      <div class="risk-desc">Ticket médio caiu de R$ 1.991 (jan) para R$ 1.118 (mar). Queda persistente sugere perda de serviços complexos ou clientes de valor.</div>
+    </div>
+    <div class="risk-card alto">
+      <div class="risk-level">Risco Alto</div>
+      <div class="risk-name">Ponto de Equilíbrio Não Atingido</div>
+      <div class="risk-desc">Nenhum mês de Q1 2026 atingiu o ponto de equilíbrio (R$ 57.721). Fevereiro 2025 também ficou abaixo. Risco de caixa negativo acumulado.</div>
+    </div>
+    <div class="risk-card medio">
+      <div class="risk-level">Risco Médio</div>
+      <div class="risk-name">Ar-Condicionado com Margem Negativa</div>
+      <div class="risk-desc">7 execuções de ar-condicionado sem receita registrada e custo de R$ 125. Precificação incorreta ou serviço sendo feito "de graça".</div>
+    </div>
+    <div class="risk-card medio">
+      <div class="risk-level">Risco Médio</div>
+      <div class="risk-name">Churn de 42,9% na Primeira Visita</div>
+      <div class="risk-desc">Cada 10 clientes novos, 4 não voltam. Com custo de aquisição por Google e indicações, é um desperdício significativo de potencial.</div>
+    </div>
+    <div class="risk-card baixo">
+      <div class="risk-level">Risco Controlável</div>
+      <div class="risk-name">Sazonalidade Pronunciada</div>
+      <div class="risk-desc">CV de 27,9% na receita mensal. Previsível e gerenciável com ações antecipadas de marketing e pacotes sazonais.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- PROJEÇÕES -->
+<!-- ========================================= -->
+<section>
+  <div class="section-header">
+    <div class="section-label">09 — Projeções 2026</div>
+    <h2 class="section-title">Três cenários para 2026 com base nos dados disponíveis</h2>
+  </div>
+
+  <div class="kpi-grid kpi-grid-3">
+    <div class="kpi-card red">
+      <div class="kpi-label">Cenário Pessimista</div>
+      <div class="kpi-value">R$ 360k</div>
+      <div class="kpi-sub">Manter média Q1 2026 (R$ 30.072/mês)</div>
+      <span class="kpi-change down">-25% vs. 2025</span>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Cenário Realista</div>
+      <div class="kpi-value">R$ 480k</div>
+      <div class="kpi-sub">Recuperar média 2025 + 2% crescimento</div>
+      <span class="kpi-change neutral">Par com 2025</span>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Cenário Otimista</div>
+      <div class="kpi-value">R$ 600k</div>
+      <div class="kpi-sub">Meta da gestão com implementação das ações</div>
+      <span class="kpi-change up">+25% vs. 2025</span>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-title">Para atingir R$ 600k em 2026, o impacto acumulado das ações principais</div>
+    <div style="display:flex; flex-direction:column; gap:14px; margin-top:8px;">
+      <div class="progress-item">
+        <div class="progress-label" style="flex:0 0 300px;">Base atual (projeção Q1 × 12)</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:60%"></div></div>
+        <div class="progress-value">R$ 360.864</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label" style="flex:0 0 300px;">+ Conversão orçamentos (30%)</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:71%"></div></div>
+        <div class="progress-value">+R$ 64.643</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label" style="flex:0 0 300px;">+ Cross-sell câmbio (2 OS/mês)</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:85%"></div></div>
+        <div class="progress-value">+R$ 86.784</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label" style="flex:0 0 300px;">+ Ticket óleo ajustado (R$133)</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:89%"></div></div>
+        <div class="progress-value">+R$ 21.730</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label" style="flex:0 0 300px;">+ Sazonalidade controlada</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:95%"></div></div>
+        <div class="progress-value">+R$ 36.000</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label" style="flex:0 0 300px;">= Projeção otimista</div>
+        <div class="progress-bar-wrap"><div class="progress-bar highlight" style="width:100%"></div></div>
+        <div class="progress-value" style="color:var(--orange); font-size:15px;">R$ 570.021</div>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--gray); margin-top:12px;">Estimativas com base em taxas conservadoras de conversão. Não inclui novos clientes PJ ou reativação de clientes inativos.</p>
+  </div>
+</section>
+
+<!-- ========================================= -->
+<!-- PLANO DE AÇÃO -->
+<!-- ========================================= -->
+<section class="section-alt">
+  <div class="section-header">
+    <div class="section-label">10 — Plano de Ação</div>
+    <h2 class="section-title">30 dias para ações de impacto imediato</h2>
+  </div>
+
+  <div class="three-col">
+    <div class="compare-card">
+      <div class="compare-card-title" style="color:var(--red);">Semana 1 — Urgente</div>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--red); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">1</div>
+          <span>Ligar para Kau Turbo (orçamento de R$ 53.240 em aberto)</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--red); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">2</div>
+          <span>Mapear todos os orçamentos em aberto acima de R$ 5.000 e criar roteiro de acompanhamento</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--red); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">3</div>
+          <span>Revisar precificação de ar-condicionado (margem negativa identificada)</span>
+        </div>
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-card-title" style="color:var(--orange);">Semana 2–3 — Estrutural</div>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--orange); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">4</div>
+          <span>Criar "Pacote Revisão Preventiva" com troca de óleo + checklist dos 10 pontos a R$ 199</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--orange); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">5</div>
+          <span>Disparar WhatsApp de reativação para os 84 clientes que não voltaram nos últimos 8+ meses</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--orange); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">6</div>
+          <span>Criar checklist obrigatório de diagnóstico em toda OS acima de R$ 300</span>
+        </div>
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-card-title" style="color:var(--green);">Semana 4 — Crescimento</div>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--green); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">7</div>
+          <span>Criar proposta de contrato de manutenção preventiva para Transpeciais e Zero Kilômetro</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--green); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">8</div>
+          <span>Otimizar Google Meu Negócio: 10 fotos novas, responder todas as avaliações, criar 4 posts</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start; font-size:13px;">
+          <div style="background:var(--green); color:white; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px;">9</div>
+          <span>Definir metas mensais individuais para Elaine e Ana Livia com premiação clara</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-info" style="margin-top:8px;">
+    <strong>Prioridade máxima:</strong> As ações de conversão de orçamentos (prioridade 1) e retenção de clientes de primeira visita (prioridade 2) têm impacto combinado estimado de R$ 159.201 em 24 meses — sem necessidade de novos clientes. Começar por essas duas antes de investir em aquisição.
+  </div>
+</section>
+
+<footer>
+  <p>Análise elaborada por <a href="https://vanttmkt.com">vanttmkt.com</a> — Dados: Garagem 72 (Abr 2024 – Mar 2026) — Gerado em 01/04/2026</p>
+</footer>
+
+</body>
+</html>
