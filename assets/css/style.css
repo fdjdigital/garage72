@@ -84,8 +84,9 @@ body.nav-open { overflow: hidden; }
 
 .header__logo-img {
     display: block;
-    height: 36px;
-    width: auto;
+    height: 36px !important;
+    width: auto !important;
+    max-height: 36px;
 }
 
 .header__nav {
