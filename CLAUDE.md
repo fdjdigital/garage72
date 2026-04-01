@@ -24,7 +24,7 @@
 
 | Nome | Função | Perfil |
 |------|--------|--------|
-| **Dennis** | Responsável técnico / Mecânico | +30 anos de experiência com importados (BMW Multi-Import, Alpina, 100 Portes). Perfil consultor técnico — não é vendedor. Transmite confiança e transparência |
+| **Dennis** | Responsável técnico / Mecânico | +30 anos de experiência com importados (BMW Multi-Import, Alpina, AC Imports). Perfil consultor técnico — não é vendedor. Transmite confiança e transparência |
 | **Elaine** | Gestão administrativa / Comercial / Financeiro | Esposa do Dennis. Experiência anterior em gestão de equipe (treinamento, advertências, jornadas). Cuida de recepção, orçamentos, financeiro, relacionamento com cliente. Mais comunicativa e influente |
 | **Ana Lívia** | Auxiliar / Compras / Orçamentos | Filha do casal. Faz cotação de peças, monta orçamentos, envia por link ao cliente. Agenda de clientes |
 
@@ -33,6 +33,10 @@
 - **Elaine** = fecha a venda, negocia pagamento, define margem. É o "policial mau" na dinâmica comercial
 - **Ana Lívia** = operacional (cotação, orçamento, envio ao cliente)
 - **Problema identificado:** Dennis tendia a dar preço e desconto por vínculo com cliente. Elaine corrigiu dividindo os papéis
+
+### Correções de Transcrição
+A transcrição da reunião de 26/03 contém erros de reconhecimento de fala. Correções conhecidas:
+- "100 Portes" na transcrição = **AC Imports** (oficina onde Dennis trabalhou)
 
 ---
 

@@ -454,15 +454,20 @@ body.nav-open { overflow: hidden; }
     text-align: center;
 }
 
-.team-card__photo {
-    width: 80px;
-    height: 80px;
+.team-card__avatar {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
     margin: 0 auto 16px;
-    display: block;
-    border: 3px solid rgba(204,0,0,0.3);
 }
+
+.team-card__avatar--dennis { background: var(--red-glow); color: var(--red); }
+.team-card__avatar--elaine { background: rgba(255,255,255,0.06); color: var(--white); }
 
 .team-card h3 { font-size: 18px; margin-bottom: 4px; }
 
@@ -663,19 +668,7 @@ body.nav-open { overflow: hidden; }
     margin-bottom: 20px;
 }
 
-.testimonial-card__author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.testimonial-card__avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
+.testimonial-card__author { display: flex; flex-direction: column; }
 
 .testimonial-card__name {
     font-weight: 600;
