@@ -80,8 +80,8 @@ body.nav-open { overflow: hidden; }
 
 .header__logo { text-decoration: none; }
 
-.header__logo-svg {
-    height: 32px;
+.header__logo-img {
+    height: 40px;
     width: auto;
 }
 
@@ -782,7 +782,7 @@ body.nav-open { overflow: hidden; }
     padding-bottom: 48px;
 }
 
-.footer__logo { height: 28px; width: auto; margin-bottom: 16px; display: block; }
+.footer__logo { height: 36px; width: auto; margin-bottom: 16px; display: block; }
 
 .footer__brand p {
     font-size: 14px;
