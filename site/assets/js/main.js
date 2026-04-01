@@ -3,64 +3,50 @@
 (function() {
     /* Header scroll */
     var header = document.getElementById('header');
+    var lastScroll = 0;
 
     window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 60) {
+        var current = window.pageYOffset;
+        if (current > 60) {
             header.classList.add('header--scrolled');
         } else {
             header.classList.remove('header--scrolled');
         }
+        lastScroll = current;
     });
 
-    /* Smooth scroll (desktop nav + mobile nav) */
+    /* Mobile menu */
+    var menuBtn = document.getElementById('menuBtn');
+    var mainNav = document.getElementById('mainNav');
+
+    menuBtn.addEventListener('click', function() {
+        menuBtn.classList.toggle('active');
+        mainNav.classList.toggle('active');
+        document.body.classList.toggle('nav-open');
+    });
+
+    /* Close mobile menu on link click */
+    var navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            menuBtn.classList.remove('active');
+            mainNav.classList.remove('active');
+            document.body.classList.remove('nav-open');
+        });
+    });
+
+    /* Smooth scroll */
     document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
-            var href = this.getAttribute('href');
-            if (href === '#') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-            }
-            var target = document.querySelector(href);
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                e.preventDefault();
                 var offset = header.offsetHeight + 16;
                 var pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
                 window.scrollTo({ top: pos, behavior: 'smooth' });
             }
         });
     });
-
-    /* Mobile nav — highlight active section */
-    var mobileItems = document.querySelectorAll('.mobile-nav__item[href^="#"]');
-    var sections = [];
-
-    mobileItems.forEach(function(item) {
-        var href = item.getAttribute('href');
-        if (href === '#') {
-            sections.push({ el: document.body, nav: item, top: 0 });
-        } else {
-            var sec = document.querySelector(href);
-            if (sec) sections.push({ el: sec, nav: item, top: 0 });
-        }
-    });
-
-    function updateMobileNav() {
-        var scrollY = window.pageYOffset + 200;
-        var active = sections[0];
-
-        sections.forEach(function(s) {
-            s.top = s.el.offsetTop;
-            if (scrollY >= s.top) active = s;
-        });
-
-        mobileItems.forEach(function(item) {
-            item.classList.remove('mobile-nav__item--active');
-        });
-        if (active) active.nav.classList.add('mobile-nav__item--active');
-    }
-
-    window.addEventListener('scroll', updateMobileNav);
 
     /* Fade in on scroll */
     var observer = new IntersectionObserver(function(entries) {
