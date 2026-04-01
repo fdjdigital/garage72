@@ -1,0 +1,225 @@
+================================================================================
+RELATÓRIO COMPLETO: ANÁLISE DE ARQUIVOS EXCEL — GARAGEM 72
+================================================================================
+
+DATA: 01 de Abril de 2026
+CLIENTE: Garagem 72 (Oficina Mecânica - Belo Horizonte)
+
+================================================================================
+1. ARQUIVOS ANALISADOS
+================================================================================
+
+Arquivo 1: METAS DE VENDAS PARA EQUIPE - MARÇO.xlsx
+  Local: /Users/mateus/Documents/vantt/prospectos/garagem72/clientes/
+  Tamanho: Médio
+  Tipo: Planilha de metas e indicadores operacionais
+
+Arquivo 2: INDICADOR DE TICKET MÉDIO ANUAL 2025 (1).xlsx
+  Local: /Users/mateus/Documents/vantt/prospectos/garagem72/clientes/
+  Tamanho: Pequeno
+  Tipo: Histórico de vendas e análise de ticket médio
+
+================================================================================
+2. ABAS E ESTRUTURA
+================================================================================
+
+ARQUIVO 1: METAS DE VENDAS PARA EQUIPE - MARÇO.xlsx
+├─ Painel Geral (PRINCIPAL)
+│  └─ Painel consolidado com indicadores de metas e custos
+├─ O que fazer no Geral
+│  └─ Instruções/recomendações operacionais
+├─ Meta Vendedores
+│  └─ Resumo consolidado de metas por vendedor
+├─ VD1, VD2, VD3, VD4, VD5
+│  └─ Detalhamento individual para cada vendedor (5 vendedores acompanhados)
+
+ARQUIVO 2: INDICADOR DE TICKET MÉDIO ANUAL 2025 (1).xlsx
+├─ 2025 (COMPLETO)
+│  └─ Histórico mensal Jan-Dez com dados de faturamento e ticket médio
+├─ 2026 (PARCIAL)
+│  └─ Dados Jan-Fev preenchidos; Mar-Dez em branco
+└─ 2027 (VAZIO)
+   └─ Sem dados
+
+================================================================================
+3. PONTO DE EQUILÍBRIO — R$ 57.720,92
+================================================================================
+
+LOCALIZAÇÃO
+  Arquivo: METAS DE VENDAS PARA EQUIPE - MARÇO.xlsx
+  Aba: Painel Geral
+  Célula: E10
+  Rótulo: "Qual o seu ponto de equilíbrio ?"
+  
+CARACTERÍSTICAS DO VALOR
+  Valor: 57.720,92 (em formato brasileiro: 57.720,92)
+  Valor em float: 57720.92
+  Tipo: VALOR DIRETO/HARDCODED
+  Fórmula: NENHUMA (não é calculado)
+  Frequência: Aparece APENAS 1 vez em toda a planilha (única ocorrência)
+
+INTERPRETAÇÃO
+  ⚠️  O valor é INFORMADO, não calculado.
+  
+  Possíveis significados:
+  1. Despesa fixa operacional mensal: R$ 57.720,92
+  2. Custo fixo mínimo para cobrir a operação (ponto de equilíbrio)
+  3. Faturamento mínimo necessário para não operar com prejuízo
+  
+CONTEXTO OPERACIONAL
+  • Ponto de equilíbrio mensal: R$ 57.720,92
+  • Meta mensal definida: R$ 50.000,00
+  • Diferença (Meta vs. Ponto de Equilíbrio): -R$ 7.720,92 (ABAIXO)
+  • Percentual: Meta alcança apenas 86,6% do ponto de equilíbrio
+  • Conclusão: Meta está INSUFICIENTE para cobrir custos fixos
+  • Falta: ~R$ 7.720,92 adicionais para atingir ponto de equilíbrio
+
+================================================================================
+4. PAINEL DE DADOS COMPLETO (Arquivo 1, Aba "Painel Geral")
+================================================================================
+
+DADOS INFORMADOS (campos preenchidos em amarelo):
+  ├─ Primeiro dia do mês: 01 de Março de 2026 (2026-03-01)
+  ├─ Ponto de equilíbrio: R$ 57.720,92 ✓
+  ├─ Meta de faturamento (mês): R$ 50.000,00
+  ├─ Dias de trabalho úteis: 17 dias
+  ├─ Ticket médio de compra: R$ 900,00
+  └─ Número de vendedores: 2
+
+INDICADORES CALCULADOS (derivados automaticamente):
+  
+  POR SEMANA:
+    • Meta de faturamento: R$ 12.500,00 (=50.000 ÷ 4)
+  
+  POR DIA:
+    • Meta de faturamento: R$ 2.941,18 (=50.000 ÷ 17)
+    • Clientes necessários: 3,27 clientes (=2.941,18 ÷ 900)
+  
+  POR VENDEDOR (MÊS):
+    • Meta de faturamento: R$ 25.000,00 (=50.000 ÷ 2)
+  
+  POR VENDEDOR (DIA):
+    • Meta de faturamento: R$ 1.470,59 (=25.000 ÷ 17)
+    • Clientes a atender: 1,63 clientes (=3,27 ÷ 2)
+  
+  RESUMO DE CLIENTES (MÊS):
+    • Total de clientes a buscar: 55,56 clientes (=50.000 ÷ 900)
+    • Clientes por dia: 3,27 (=55,56 ÷ 17)
+
+================================================================================
+5. ARQUIVO 2 — INDICADOR DE TICKET MÉDIO ANUAL 2025
+================================================================================
+
+DADOS HISTÓRICOS (2025):
+  
+  Veículo analisado: Chevrolet
+  Período: 12 meses (Jan-Dez 2025)
+  
+  TOTALIZADORES 2025:
+    • Faturamento total: R$ 479.155,17
+    • Quantidade de vendas: 322 unidades
+    • Ticket médio geral: R$ 1.488,06
+  
+  MÊS COM MAIOR FATURAMENTO:
+    • Junho: R$ 54.496,51 (34 unidades vendidas)
+  
+  MÊS COM MENOR FATURAMENTO:
+    • Outubro: R$ 24.795,00 (29 unidades vendidas)
+  
+  TICKET MÉDIO POR MÊS:
+    • Maior: Dezembro (R$ 2.304,56)
+    • Menor: Outubro (R$ 855,00)
+
+DADOS PARCIAIS (2026):
+  • Janeiro: R$ 41.820,00 (21 unidades, ticket R$ 1.991,43)
+  • Fevereiro: R$ 22.690,00 (14 unidades, ticket R$ 1.620,71)
+  • Março em diante: SEM DADOS
+  
+DADOS 2027:
+  • Vazio (sem preenchimento)
+
+================================================================================
+6. RELAÇÃO ENTRE OS DOIS ARQUIVOS
+================================================================================
+
+Arquivo 1 (Metas de Vendas):
+  • Define metas operacionais para MARÇO 2026
+  • Estabelece custos fixos (ponto de equilíbrio): R$ 57.720,92
+  • Planeja vendas mensais: R$ 50.000,00
+
+Arquivo 2 (Ticket Médio):
+  • Fornece histórico de desempenho real (2025)
+  • Permite análise de tendências e sazonalidade
+  • Mostra capacidade de venda: ticket médio ~R$ 1.488,00
+  
+INSIGHT:
+  Para atingir a meta de R$ 50.000,00 com ticket médio de R$ 1.488,06:
+    → Necessários: 33,6 vendas (arredondado: 34 vendas)
+  
+  Para atingir o ponto de equilíbrio de R$ 57.720,92:
+    → Necessários: 38,8 vendas (arredondado: 39 vendas)
+  
+  GAP: Faltam ~5 vendas para cobrir custos fixos
+
+================================================================================
+7. MEMORIAL DE CÁLCULO
+================================================================================
+
+O VALOR R$ 57.720,92 É:
+  ✗ NÃO calculado por fórmula
+  ✗ NÃO derivado de outras células
+  ✓ INFORMADO DIRETAMENTE (hardcoded na célula E10)
+
+NÃO FOI ENCONTRADA A ORIGEM/CÁLCULO DO VALOR.
+
+Possível cálculo reverso (especulação):
+  Se for custo fixo mensal, pode incluir:
+    ├─ Aluguel/estrutura
+    ├─ Folha de pagamento (2 vendedores)
+    ├─ Serviços/utilidades
+    ├─ Outras despesas operacionais
+    └─ Margem de segurança
+
+Validação com dados históricos:
+  Faturamento mensal médio (2025): 479.155,17 ÷ 12 = R$ 39.929,60
+  Ponto de equilíbrio informado: R$ 57.720,92
+  Margem de segurança necessária: 44,6%
+  
+  Interpretação: Ponto de equilíbrio é 44,6% ACIMA da média histórica,
+  o que indica:
+    • Expectativa de crescimento, OU
+    • Aumento recente de custos, OU
+    • Planejamento conservador/prudente
+
+================================================================================
+8. CONCLUSÕES
+================================================================================
+
+1. PONTO DE EQUILÍBRIO IDENTIFICADO
+   ✓ Valor: R$ 57.720,92
+   ✓ Localização: Arquivo 1, Aba "Painel Geral", Célula E10
+   ✓ Status: Valor direto, sem fórmula aparente
+
+2. META ABAIXO DE CUSTO FIXO
+   ⚠️  Meta mensal (R$ 50.000) está R$ 7.720,92 ABAIXO do ponto de equilíbrio
+   ⚠️  Meta cobre apenas 86,6% dos custos fixos necessários
+
+3. RECOMENDAÇÃO ESTRATÉGICA
+   → Meta deveria ser de R$ 57.720,92 ou superior para equilibrar custos
+   → Alternativa: Reduzir custos fixos em R$ 7.720,92
+   → Ou aumentar meta em ~15,4% (de R$ 50k para R$ 57,72k)
+
+4. VIABILIDADE HISTÓRICA
+   • Faturamento médio (2025): R$ 39.929,60
+   • Ponto de equilíbrio necessário: R$ 57.720,92
+   • Crescimento necessário: 44,6% vs. histórico
+   • Possibilidade: MÉDIA (depende de esforço comercial)
+
+5. DADOS DE SUPPORT
+   • Arquivo 2 contém histórico de vendas (2025)
+   • Ticket médio validado: R$ 1.488,06
+   • Sem dados de custos detalhados em Arquivo 2
+
+================================================================================
+FIM DO RELATÓRIO
+================================================================================
