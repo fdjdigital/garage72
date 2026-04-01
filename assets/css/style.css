@@ -80,11 +80,12 @@ body.nav-open { overflow: hidden; }
 
 .header__logo { text-decoration: none; }
 
+.header__logo { flex-shrink: 0; }
+
 .header__logo-img {
-    height: 32px;
+    display: block;
+    height: 36px;
     width: auto;
-    max-width: 160px;
-    object-fit: contain;
 }
 
 .header__nav {
