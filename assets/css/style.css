@@ -557,6 +557,19 @@ body.nav-open { overflow: hidden; }
     background: rgba(204,0,0,0.04);
 }
 
+.brand-card__logo {
+    display: block;
+    width: auto;
+    height: 48px;
+    margin: 0 auto 12px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.brand-card:hover .brand-card__logo { opacity: 1; }
+
+.brand-card--highlight .brand-card__logo { opacity: 1; }
+
 .brand-card__name {
     display: block;
     font-size: 16px;

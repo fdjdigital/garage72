@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80">
+  <ellipse cx="80" cy="35" rx="40" ry="30" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <path d="M55 20 C55 20 65 50 80 35 C95 20 105 50 105 50" fill="none" stroke="#ffffff" stroke-width="3.5"/>
+  <text x="80" y="78" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold" font-size="13" letter-spacing="4">HYUNDAI</text>
+</svg>

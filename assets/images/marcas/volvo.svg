@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="54" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <line x1="60" y1="6" x2="80" y2="30" stroke="#ffffff" stroke-width="3"/>
+  <circle cx="60" cy="60" r="42" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="60" y="66" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold" font-size="18" letter-spacing="4">VOLVO</text>
+</svg>
