@@ -1,8 +1,9 @@
-# CLAUDE.md — Garagem 72 | Oficina Mecânica Premium
+# CLAUDE.md — Garage 72 | Oficina Mecânica Premium
 
-> **Status:** Prospecto ativo — apresentação comercial em 01/04/2026
+> **Status:** Prospecto ativo — apresentação comercial realizada em 01/04/2026
 > **Indicação:** Múcio Barbosa Ribeiro dos Santos (cliente ativo Vantt — Prisma Cristais e Múcio Santos Advocacia)
 > **Primeiro contato:** 26/03/2026 (visita presencial + consultoria)
+> **Segunda visita:** 01/04/2026 (apresentação comercial presencial)
 
 ---
 
@@ -10,13 +11,15 @@
 
 | Campo | Valor |
 |-------|-------|
-| **Nome fantasia** | Garagem 72 |
+| **Nome fantasia** | Garage 72 |
 | **Instagram** | @garage72.oficinamultimarcas |
 | **Google Meu Negócio** | https://g.page/r/CbcKuihMLRUkEAI/review |
-| **Endereço** | Rua Batista Carneiro, bairro Mungo — Belo Horizonte/MG |
+| **Telefone/WhatsApp** | (31) 99100-3812 |
+| **Endereço** | Rua Batista Carneiro, 120 — Salgado Filho, Belo Horizonte/MG |
 | **Horário** | 08:00–11:00 / 13:30–18:00 (seg–sex) |
 | **Inauguração** | 20 de maio de 2024 |
 | **Tempo de mercado** | ~2 anos (completam em maio/2026) |
+| **Avaliações Google** | 53 avaliações, todas 5 estrelas |
 
 ---
 
@@ -238,22 +241,33 @@ A transcrição da reunião de 26/03 contém erros de reconhecimento de fala. Co
 | # | Serviço | Valor Avulso no Mercado |
 |---|---------|------------------------|
 | 1 | Google Ads (gestão + otimização) | R$ 2.500/mês |
-| 2 | Google Meu Negócio (setup + gestão) | R$ 600 (setup) + R$ 500/mês |
-| 3 | Gestão de Instagram (conteúdo + estratégia) | R$ 2.500/mês |
-| 4 | Site institucional com SEO | R$ 8.000 (projeto) |
-| 5 | Automações WhatsApp (lembretes, pós-venda, recuperação) | R$ 2.500/mês |
-| 6 | CRM e gestão de base de clientes | R$ 1.500/mês |
-| 7 | Consultoria estratégica mensal | R$ 2.000/mês |
+| 2 | Meta Ads — Instagram e Facebook (gestão) | R$ 2.500/mês |
+| 3 | Google Meu Negócio (setup + gestão) | R$ 600 (setup) + R$ 500/mês |
+| 4 | Gestão de Instagram (conteúdo + estratégia) | R$ 2.500/mês |
+| 5 | Criação de site institucional com SEO | R$ 8.000 (projeto) |
+| 6 | Manutenção e atualização mensal do site | R$ 800/mês |
+| 7 | Automações WhatsApp (lembretes, pós-venda, recuperação) | R$ 2.500/mês |
+| 8 | CRM e gestão de base de clientes | R$ 1.500/mês |
+| 9 | Consultoria estratégica mensal | R$ 2.000/mês |
+| 10 | Identidade visual profissional | R$ 7.000 (projeto) |
 
 ### Valor Empilhado
-- **Setup:** R$ 8.600 (site + GMN)
-- **Mensal avulso:** R$ 11.500/mês
-- **Total primeiro ano avulso:** R$ 146.600
+- **Setup:** R$ 15.600 (site + identidade visual + GMN)
+- **Mensal avulso:** R$ 14.800/mês (9 prestadores)
+- **Total primeiro ano avulso:** R$ 193.200
 
 ### Proposta Vantt
-- **Investimento real:** R$ 3.000 a R$ 5.000/mês (a definir pelo Mateus)
-- **Setup incluso** no primeiro mês (sem custo adicional)
-- **Obs:** Verba de mídia (Google Ads) à parte — recomendado R$ 1.500-3.000/mês
+- **Investimento real:** R$ 5.000/mês (fee fixo)
+- **Verba de mídia:** ~R$ 2.000/mês (Google Ads + Meta Ads, pago ao Google/Meta)
+- **Setup incluso** (site, automações, identidade visual — sem custo adicional)
+- **Custo total mensal para o cliente:** ~R$ 7.000 (fee + mídia)
+- **Para compensar (margem 2/3):** R$ 10.500/mês de faturamento extra = ~7 clientes novos
+- **Estimativa do funil:** 14 a 38 clientes novos/mês com R$ 2.000 de mídia (ROAS 2x a 6x)
+
+### Ponto de Equilíbrio (ATENÇÃO)
+- O valor de **R$ 57.720,92/mês** foi informado pela Elaine na planilha de metas (célula E10, valor fixo sem fórmula)
+- **Não há memorial de cálculo** — confirmar com a Elaine a composição (aluguel, salários, impostos, etc.)
+- A meta de março (R$ 50.000) estava ABAIXO do ponto de equilíbrio — inconsistência a resolver
 
 ---
 
@@ -298,9 +312,26 @@ A transcrição da reunião de 26/03 contém erros de reconhecimento de fala. Co
 
 ---
 
-## 13. REGRAS DO PROJETO
+## 13. HOSPEDAGEM E DEPLOY
+
+| Item | Valor |
+|------|-------|
+| **Repositório** | https://github.com/fdjdigital/garage72 (público) |
+| **Hospedagem** | Hostinger compartilhada (mesmo servidor do Hipercontroll) |
+| **SSH** | `ssh -p 65002 u402652678@212.85.8.79` (senha em ~/docs/credenciais.md) |
+| **Pasta no servidor** | `/home/u402652678/domains/vanttmkt.com/public_html/garage72/` |
+| **Subdomínio** | garage72.vanttmkt.com (a configurar no painel Hostinger) |
+| **Deploy automático** | Webhook Hostinger — dispara a cada push na main |
+| **Webhook URL** | `https://webhooks.hostinger.com/deploy/7876e9196be3a682553ab0e37df8cd36` |
+
+**IMPORTANTE:** O subdomínio antigo `garagem72.vanttmkt.com` foi removido. Criar `garage72.vanttmkt.com` no painel da Hostinger apontando para a pasta `garage72`.
+
+---
+
+## 14. REGRAS DO PROJETO
 
 - Seguir padrões Vantt (CLAUDE.md raiz)
+- Nome da empresa: **Garage 72** (sem "m" — NÃO é "Garagem")
 - Sem emojis em materiais do cliente
 - Português do Brasil com acentuação impecável
 - Terminologia em português (sem termos em inglês)
@@ -312,13 +343,22 @@ A transcrição da reunião de 26/03 contém erros de reconhecimento de fala. Co
 
 ---
 
-## 14. ARQUIVOS DO PROJETO
+## 15. ARQUIVOS DO PROJETO
 
-| Arquivo | Descrição |
-|---------|-----------|
+| Arquivo/Pasta | Descrição |
+|---------------|-----------|
 | `clientes/` | Planilhas de dados (clientes, OS, orçamentos, produtos, serviços, metas) |
-| `pesquisas/mercado-oficinas-bh-2025.md` | Pesquisa de mercado completa |
-| `pesquisas/empilhamento-precos-e-valores-mercado.md` | Referência: Múcio Santos |
+| `apresentacao-comercial/` | Apresentação HTML (28 slides) com empilhamento de preços |
+| `troca-de-oleo/` | Landing page premium para captação via troca de óleo |
+| `acoes-praticas/` | Página com ações de baixo custo que podem implementar sozinhos |
+| `relatorio/` | Relatório completo de análise de dados dos clientes |
+| `pesquisas/mercado-oficinas-bh-2025.md` | Pesquisa de mercado oficinas BH |
+| `pesquisas/funil-troca-oleo-trafego-pago.md` | Pesquisa de funil + estimativas ROI |
+| `pesquisas/sites-referencia-oficinas.md` | Referência de sites de oficinas nacionais |
+| `docs/relatorio-dados-clientes.md` | Relatório resumido dos dados |
+| `docs/analise-dados-clientes.html` | Análise completa (RFM, Pareto, LTV, 10 insights) |
+| `assets/logo/logo-garage72.png` | Logo oficial (fundo transparente, serve claro e escuro) |
+| `assets/images/marcas/png/` | Logos PNG reais das 12 marcas atendidas |
 | `03-26 Reunião...transcript.txt` | Transcrição da reunião de consultoria |
 
 ---
